@@ -39,7 +39,7 @@ def modifArray(num, turn):
     elif(num == 8):
         MapRows[2][2]=turn
 
-gameState = false 
+gameState = False 
 
 turn = 'X'
 
@@ -56,15 +56,15 @@ def checkWinner(MapRows):
     elif(MapRows[2][0] == 'X' and MapRows[2][1] == 'X' and MapRows[2][2] == 'X'):
         print("X has won")
         return "X"
-    elif(MapRows[0][0] == 'Y' and MapRows[0][1] == 'Y' and MapRows[0][2] == 'Y'):
-        print("Y has won")
-        return "Y"
-    elif(MapRows[1][0] == 'Y' and MapRows[1][1] == 'Y' and MapRows[1][2] == 'Y'):
-        print("Y has won")
-        return "Y"
-    elif(MapRows[2][0] == 'Y' and MapRows[2][1] == 'Y' and MapRows[2][2] == 'Y'):
-        print("Y has won")
-        return "Y"
+    elif(MapRows[0][0] == 'O' and MapRows[0][1] == 'O' and MapRows[0][2] == 'O'):
+        print("O has won")
+        return "O"
+    elif(MapRows[1][0] == 'O' and MapRows[1][1] == 'O' and MapRows[1][2] == 'O'):
+        print("O has won")
+        return "O"
+    elif(MapRows[2][0] == 'O' and MapRows[2][1] == 'O' and MapRows[2][2] == 'O'):
+        print("O has won")
+        return "O"
     ### Y axis"
     elif(MapRows[0][0] == 'X' and MapRows[1][0] == 'X' and MapRows[2][0] == 'X'):
         print("X has won")
@@ -75,15 +75,15 @@ def checkWinner(MapRows):
     elif(MapRows[0][2] == 'X' and MapRows[1][2] == 'X' and MapRows[2][2] == 'X'):
         print("X has won")
         return "X"
-    elif(MapRows[0][0] == 'Y' and MapRows[1][0] == 'Y' and MapRows[2][0] == 'Y'):
-        print("Y has won")
-        return "Y"
-    elif(MapRows[0][1] == 'Y' and MapRows[1][1] == 'Y' and MapRows[2][1] == 'Y'):
-        print("Y has won")
-        return "Y"
-    elif(MapRows[0][2] == 'Y' and MapRows[1][2] == 'Y' and MapRows[2][2] == 'Y'):
-        print("Y has won")
-        return "Y"
+    elif(MapRows[0][0] == 'O' and MapRows[1][0] == 'O' and MapRows[2][0] == 'O'):
+        print("O has won")
+        return "O"
+    elif(MapRows[0][1] == 'O' and MapRows[1][1] == 'O' and MapRows[2][1] == 'O'):
+        print("O has won")
+        return "O"
+    elif(MapRows[0][2] == 'O' and MapRows[1][2] == 'O' and MapRows[2][2] == 'O'):
+        print("O has won")
+        return "O"
     ###Cross Win
     elif(MapRows[0][0] == 'Y' and MapRows[1][1] == 'Y' and MapRows[2][2] == 'X'):
         print("X has won")
@@ -91,14 +91,36 @@ def checkWinner(MapRows):
     elif(MapRows[0][2] == 'Y' and MapRows[1][1] == 'Y' and MapRows[2][2] == 'X'):
         print("X has won")
         return "X"
-    elif(MapRows[0][0] == 'Y' and MapRows[1][1] == 'Y' and MapRows[2][2] == 'Y'):
-        print("Y has won")
-        return "Y"
-    elif(MapRows[0][2] == 'Y' and MapRows[1][1] == 'Y' and MapRows[2][2] == 'Y'):
-        print("Y has won")
-        return "Y"
+    elif(MapRows[0][0] == 'O' and MapRows[1][1] == 'O' and MapRows[2][2] == 'O'):
+        print("O has won")
+        return "O"
+    elif(MapRows[0][2] == 'O' and MapRows[1][1] == 'O' and MapRows[2][2] == 'O'):
+        print("O has won")
+        return "O"
     else:
-        return "N" 
+        return 0 
     
-
+while(gameState==False):
+    if(turnCounter % 2 == 1):
+        printMap()
+        numberPicked = int(input("\nChoose a number [1-9]: "))
+        if(numberPicked >=1 or numberPicked <= 9):
+            modifArray(numberPicked,'X')
+            mapPositions.remove(numberPicked)
+        else:
+            print("Invalid input !")
+        turnCounter+=1
+    else:
+        while(True):
+            botChoice=random.choice(mapPositions)
+            print("\nBot choice: ",botChoice)
+            if(botChoice in mapPositions):
+                modifArray(botChoice,'O')
+                mapPositions.remove(botChoice)
+                turnCounter +=1
+                break
+    winner = checkWinner(MapRows)
+    if(winner != 0):
+        print("\nGame over !")
+        break
     
